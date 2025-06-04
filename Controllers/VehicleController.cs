@@ -1,7 +1,7 @@
+using System.Threading.Tasks;
 using FleetManager.Models;
 using FleetManager.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
 
 namespace FleetManager.Controllers;
 
@@ -9,57 +9,63 @@ namespace FleetManager.Controllers;
 [Route("[controller]")]
 public class VehiclesController : ControllerBase
 {
+    private readonly VehicleService _vehicleService;
+
+    public VehiclesController(VehicleService vehicleService)
+    {
+        _vehicleService = vehicleService;
+    }
 
     [HttpGet]
-    public IEnumerable<Vehicle> GetAll()
+    public IActionResult GetAll()
     {
-        return VehicleService.GetAll();
+        return Ok(_vehicleService.GetAll());
     }
 
     [HttpGet("{id}")]
     public ActionResult<Vehicle> Get(int id)
     {
-        var vehicle = VehicleService.Get(id);
+        var vehicle = _vehicleService.Get(id);
 
         if (vehicle == null)
             return NotFound();
 
-        return vehicle;
+        return Ok(vehicle);
     }
 
     [HttpPost]
-    public ActionResult Create(Vehicle vehicle)
+    public async Task<ActionResult> Create(Vehicle vehicle)
     {
-        VehicleService.Add(vehicle);
+        await _vehicleService.Add(vehicle);
 
         return CreatedAtAction(nameof(Get), new { id = vehicle.Id }, vehicle);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Vehicle vehicle)
+    public async Task<IActionResult> Update(int id, Vehicle vehicle)
     {
         if (id != vehicle.Id)
             return BadRequest();
 
-        var existingVehicle = VehicleService.Get(id);
+        var existingVehicle = _vehicleService.Get(id);
 
         if (existingVehicle == null)
             return NotFound();
 
-        VehicleService.Update(vehicle);
+        await _vehicleService.Update(vehicle);
 
         return NoContent();
     }
 
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        var vehicle = VehicleService.Get(id);
+        var vehicle = _vehicleService.Get(id);
 
         if (vehicle == null)
             return NotFound();
 
-        VehicleService.Delete(id);
+        await _vehicleService.Delete(id);
 
         return NoContent();
     }

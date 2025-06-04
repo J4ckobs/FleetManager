@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "brand": "Toyota",
+    "model": "Corolla",
+    "year": 2020,
+    "mileage": 45000,
+    "status": "Available"
+  },
+  {
+    "id": 2,
+    "brand": "Ford",
+    "model": "Focus",
+    "year": 2018,
+    "mileage": 72000,
+    "status": "In Service"
+  },
+  {
+    "id": 3,
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "year": 2019,
+    "mileage": 53000,
+    "status": "Rented"
+  },
+  {
+    "id": 4,
+    "brand": "Honda",
+    "model": "Civic",
+    "year": 2021,
+    "mileage": 21000,
+    "status": "Available"
+  }
+]

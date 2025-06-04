@@ -4,3 +4,17 @@ GET {{FleetManager_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+PUT {{FleetManager_HostAddress}}/vehicles/1
+Host: localhost:7073
+Content-Type: application/json
+Content-Length: 119
+
+{
+  "id": 3,
+  "brand": "Toyota",
+  "model": "Corolla",
+  "year": 2020,
+  "mileage": 50000,
+  "status": "Available"
+}
