@@ -1,0 +1,269 @@
+@model DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard - Fleet Manager";
+}
+
+<div class="container-fluid mt-4">
+    <!-- Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="h2 mb-0">Dashboard Fleet Manager</h1>
+                    <p class="text-muted">Przegląd systemu zarządzania flotą</p>
+                </div>
+                <div class="text-end">
+                    <small class="text-muted">Ostatnia aktualizacja: @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.Error
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <!-- Statystyki -->
+    <div class="row mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                Łączna liczba pojazdów
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalVehicles</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-car fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                Aktywne pojazdy
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveVehicles</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-info shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                Łączna liczba kierowców
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalDrivers</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                Dostępni kierowcy
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AvailableDrivers</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-user-check fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Szybkie akcje -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Szybkie akcje</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a href="@Url.Action("Create", "Driver")" class="btn btn-success btn-block">
+                                <i class="fas fa-user-plus"></i> Dodaj kierowcę
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a href="@Url.Action("Create", "Vehicle")" class="btn btn-primary btn-block">
+                                <i class="fas fa-plus"></i> Dodaj pojazd
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a href="@Url.Action("Index", "Driver")" class="btn btn-info btn-block">
+                                <i class="fas fa-list"></i> Lista kierowców
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a href="@Url.Action("Index", "Vehicle")" class="btn btn-warning btn-block">
+                                <i class="fas fa-car"></i> Lista pojazdów
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ostatnio dodane -->
+    <div class="row">
+        <!-- Ostatnio dodani kierowcy -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Ostatnio dodani kierowcy</h6>
+                    <a href="@Url.Action("Index", "Driver")" class="btn btn-sm btn-primary">Zobacz wszystkich</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentDrivers.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Imię i nazwisko</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var driver in Model.RecentDrivers)
+                                    {
+                                        <tr>
+                                            <td>@driver.FirstName @driver.LastName</td>
+                                            <td>@driver.Email</td>
+                                            <td>
+                                                <span class="badge badge-success">*STATUS*</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Brak kierowców w systemie</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- Ostatnio dodane pojazdy -->
+        <div class="col-xl-6 col-lg-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary">Ostatnio dodane pojazdy</h6>
+                    <a href="@Url.Action("Index", "Vehicle")" class="btn btn-sm btn-primary">Zobacz wszystkie</a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentVehicles.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Marka</th>
+                                        <th>Model</th>
+                                        <th>Rejestracja</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var vehicle in Model.RecentVehicles)
+                                    {
+                                        <tr>
+                                            <td>*VEHICLE MAKE</td>
+                                            <td>@vehicle.Model</td>
+                                            <td>*VEHICLE LICENSE PLATE*</td>
+                                            <td>
+                                                <span
+                                                    class="badge @(vehicle.Status == "Active" ? "badge-success" : "badge-secondary")">
+                                                    @vehicle.Status
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted text-center">Brak pojazdów w systemie</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .border-left-primary {
+        border-left: 0.25rem solid #4e73df !important;
+    }
+
+    .border-left-success {
+        border-left: 0.25rem solid #1cc88a !important;
+    }
+
+    .border-left-info {
+        border-left: 0.25rem solid #36b9cc !important;
+    }
+
+    .border-left-warning {
+        border-left: 0.25rem solid #f6c23e !important;
+    }
+
+    .text-gray-800 {
+        color: #5a5c69 !important;
+    }
+
+    .text-gray-300 {
+        color: #dddfeb !important;
+    }
+
+    .badge-success {
+        background-color: #1cc88a;
+    }
+
+    .badge-secondary {
+        background-color: #858796;
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+</style>
