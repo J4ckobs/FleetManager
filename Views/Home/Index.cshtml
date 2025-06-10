@@ -165,17 +165,22 @@
                                             <td>@driver.FirstName @driver.LastName</td>
                                             <td>@driver.Email</td>
                                             <td>
-                                                <span class="badge badge-success">*STATUS*</span>
-                                            </td>
-                                        </tr>
-                                    }
+                                                <span class="badge 
+                                                        @(driver.AssignedVehicleLicensePlate == null ?
+                                                            "badge-success" : "badge-secondary")">
+                                                    @(driver.AssignedVehicleLicensePlate == null ?
+                                                        "Avaliable" : "Assigned")
+                                        </span>
+                                    </td>
+                                </tr>
+                                                                }
                                 </tbody>
                             </table>
                         </div>
                     }
                     else
                     {
-                        <p class="text-muted text-center">Brak kierowców w systemie</p>
+                        <p class="text-muted text-center">Brak dostępnych kierowców w systemie</p>
                     }
                 </div>
             </div>
@@ -205,13 +210,13 @@
                                     @foreach (var vehicle in Model.RecentVehicles)
                                     {
                                         <tr>
-                                            <td>*VEHICLE MAKE</td>
+                                            <td>@vehicle.Brand</td>
                                             <td>@vehicle.Model</td>
-                                            <td>*VEHICLE LICENSE PLATE*</td>
+                                            <td>@vehicle.LicensePlate</td>
                                             <td>
                                                 <span
-                                                    class="badge @(vehicle.Status == "Active" ? "badge-success" : "badge-secondary")">
-                                                    @vehicle.Status
+                                                    class="badge @(vehicle.Status == 0 ? "badge-success" : "badge-secondary")">
+                                                    @vehicle.Status.ToString().Replace("_"," ")
                                                 </span>
                                             </td>
                                         </tr>
@@ -222,7 +227,7 @@
                     }
                     else
                     {
-                        <p class="text-muted text-center">Brak pojazdów w systemie</p>
+                        <p class="text-muted text-center">Brak dostępnych pojazdów w systemie</p>
                     }
                 </div>
             </div>

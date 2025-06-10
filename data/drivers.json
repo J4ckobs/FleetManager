@@ -7,7 +7,7 @@
     "LicenseExpiryDate": "2027-04-15T00:00:00",
     "PhoneNumber": "+48123456789",
     "Email": "jan.kowalski@example.com",
-    "AssignedVehicleId": null
+    "AssignedVehicleLicensePlate": null
   },
   {
     "Id": 2,
@@ -17,7 +17,7 @@
     "LicenseExpiryDate": "2026-11-30T00:00:00",
     "PhoneNumber": "+48987654321",
     "Email": "anna.nowak@example.com",
-    "AssignedVehicleId": null
+    "AssignedVehicleLicensePlate": "KRA T6J8"
   },
   {
     "Id": 3,
@@ -25,8 +25,8 @@
     "LastName": "Wiśniewski",
     "LicenseNumber": "LMN45678",
     "LicenseExpiryDate": "2025-09-10T00:00:00",
-    "PhoneNumber": null,
+    "PhoneNumber": "+48523942358",
     "Email": null,
-    "AssignedVehicleId": null
+    "AssignedVehicleLicensePlate": null
   }
 ]

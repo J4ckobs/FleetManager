@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations;
 
 namespace FleetManager.Models;
@@ -13,5 +12,5 @@ public class Driver
     public DateTime LicenseExpiryDate { get; set; }
     public string? PhoneNumber { get; set; }
     public string? Email { get; set; }
-    public int? AssignedVehicleId { get; set; }
+    public string? AssignedVehicleLicensePlate { get; set; } = null;
 }

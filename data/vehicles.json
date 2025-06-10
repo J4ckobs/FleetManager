@@ -5,7 +5,8 @@
     "model": "Corolla",
     "year": 2020,
     "mileage": 45000,
-    "status": "Available"
+    "licenseplate": "KRA 1234",
+    "status": 0
   },
   {
     "id": 2,
@@ -13,7 +14,8 @@
     "model": "Focus",
     "year": 2018,
     "mileage": 72000,
-    "status": "In Service"
+    "licenseplate": "KR O3J4D",
+    "status": 2
   },
   {
     "id": 3,
@@ -21,7 +23,8 @@
     "model": "Golf",
     "year": 2019,
     "mileage": 53000,
-    "status": "Rented"
+    "licenseplate": "KR S0T2R",
+    "status": 1
   },
   {
     "id": 4,
@@ -29,6 +32,7 @@
     "model": "Civic",
     "year": 2021,
     "mileage": 21000,
-    "status": "Available"
+    "licenseplate": "KRA T6J8",
+    "status": 0
   }
 ]

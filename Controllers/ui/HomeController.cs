@@ -27,8 +27,8 @@ namespace FleetManager.Controllers
                 {
                     TotalVehicles = vehicles.Count(),
                     TotalDrivers = drivers.Count(),
-                    ActiveVehicles = vehicles.Count(v => v.Status == "Active"),
-                    //AvailableDrivers = drivers.Count(d => d.Status == "Available"),
+                    ActiveVehicles = vehicles.Count(v => v.Status == 0),
+                    AvailableDrivers = drivers.Count(d => d.AssignedVehicleLicensePlate == null),
                     RecentVehicles = vehicles.OrderByDescending(v => v.Id).Take(5).ToList(),
                     RecentDrivers = drivers.OrderByDescending(d => d.Id).Take(5).ToList()
                 };

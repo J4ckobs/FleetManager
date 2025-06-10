@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FleetManager.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/drivers")]
 public class DriverController : ControllerBase
 {
     private readonly DriverService _driverService;
