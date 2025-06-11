@@ -17,15 +17,15 @@ public class VehiclesController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(_vehicleService.GetAll());
+        return Ok(await _vehicleService.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Vehicle> Get(int id)
+    public async Task<ActionResult<Vehicle>> Get(int id)
     {
-        var vehicle = _vehicleService.Get(id);
+        var vehicle = await _vehicleService.Get(id);
 
         if (vehicle == null)
             return NotFound();
@@ -47,7 +47,7 @@ public class VehiclesController : ControllerBase
         if (id != vehicle.Id)
             return BadRequest();
 
-        var existingVehicle = _vehicleService.Get(id);
+        var existingVehicle = await _vehicleService.Get(id);
 
         if (existingVehicle == null)
             return NotFound();
@@ -60,7 +60,7 @@ public class VehiclesController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var vehicle = _vehicleService.Get(id);
+        var vehicle = await _vehicleService.Get(id);
 
         if (vehicle == null)
             return NotFound();

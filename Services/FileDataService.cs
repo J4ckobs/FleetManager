@@ -23,14 +23,14 @@ public class FileDataService<T> where T : class
         _filePath = Path.Combine(dataDirectory, $"{fileName}.json");
     }
 
-    public List<T> GetAll()
+    public async Task<List<T>> GetAllAsync()
     {
         try
         {
             if (!File.Exists(_filePath))
                 return new List<T>();
 
-            var json = File.ReadAllTextAsync(_filePath).Result;
+            var json = await File.ReadAllTextAsync(_filePath);
             return JsonSerializer.Deserialize<List<T>>(json, new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
@@ -42,9 +42,9 @@ public class FileDataService<T> where T : class
             return new List<T>();
         }
     }
-    public T? GetByPredictateAsync(Func<T, bool> pred)
+    public async Task<T?> GetByPredictateAsync(Func<T, bool> pred)
     {
-        var data = GetAll();
+        var data = await GetAllAsync();
 
         return data.FirstOrDefault(pred);
     }
@@ -59,7 +59,7 @@ public class FileDataService<T> where T : class
 
     public async Task<int> AddAsync(T item)
     {
-        var data = GetAll();
+        var data = await GetAllAsync();
         data.Add(item);
         return await SaveAsync(data);
     }
@@ -67,7 +67,7 @@ public class FileDataService<T> where T : class
 
     public async Task<int> RemoveByPredictateAsync(Func<T, bool> pred)
     {
-        var data = GetAll();
+        var data = await GetAllAsync();
         var itemToRemove = data.FirstOrDefault(pred);
 
         if (itemToRemove == null)
@@ -80,7 +80,7 @@ public class FileDataService<T> where T : class
 
     public async Task<int> UpdateAsync(Func<T, bool> pred, T updatedItem)
     {
-        var data = GetAll();
+        var data = await GetAllAsync();
         var index = data.FindIndex(x => pred(x));
 
         if (index == -1)

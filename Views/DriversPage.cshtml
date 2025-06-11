@@ -1,0 +1,44 @@
+@using FleetManager.Models
+@model IEnumerable<Driver>
+@{
+    ViewData["Title"] = "Drivers - Fleet Manager";
+}
+
+<div class="card-body">
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Imię i nazwisko</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var driver in Model)
+                    {
+                        <tr>
+                            <td>@driver.FirstName @driver.LastName</td>
+                            <td>@driver.Email</td>
+                            <td>
+                                <span
+                                    class="badge  @(driver.AssignedVehicleLicensePlate == null ? "badge-success" : "badge-secondary")">
+                                    @(driver.AssignedVehicleLicensePlate == null ?
+                                                                "Avaliable" : "Assigned")
+                        </span>
+                    </td>
+                </tr>
+                                }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted text-center">Brak dostępnych kierowców w systemie</p>
+    }
+</div>
+
+<link rel="stylesheet" href="~/css/style.css">

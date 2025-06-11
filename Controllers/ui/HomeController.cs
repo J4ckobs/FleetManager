@@ -4,6 +4,8 @@ using FleetManager.Models;
 
 namespace FleetManager.Controllers
 {
+    [ApiController]
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly VehicleService _vehicleService;
@@ -15,13 +17,14 @@ namespace FleetManager.Controllers
             _driverService = driverService;
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
             try
             {
                 // Pobierz podstawowe statystyki
-                var vehicles = _vehicleService.GetAll();
-                var drivers = _driverService.GetAll();
+                var vehicles = await _vehicleService.GetAll();
+                var drivers = await _driverService.GetAll();
 
                 var dashboardData = new DashboardViewModel
                 {
@@ -33,7 +36,7 @@ namespace FleetManager.Controllers
                     RecentDrivers = drivers.OrderByDescending(d => d.Id).Take(5).ToList()
                 };
 
-                return View(dashboardData);
+                return View("~/Views/Index.cshtml", dashboardData);
             }
             catch (Exception ex)
             {

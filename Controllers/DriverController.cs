@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FleetManager.Models;
 using FleetManager.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,15 @@ public class DriverController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        return Ok(_driverService.GetAll());
+        return Ok(await _driverService.GetAll());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Driver> Get(int id)
+    public async Task<ActionResult<Driver>> Get(int id)
     {
-        var driver = _driverService.Get(id);
+        var driver = await _driverService.Get(id);
 
         if (driver == null)
             return NotFound();
@@ -46,7 +47,7 @@ public class DriverController : ControllerBase
         if (id != driver.Id)
             return BadRequest();
 
-        var existingDriver = _driverService.Get(id);
+        var existingDriver = await _driverService.Get(id);
 
         if (existingDriver == null)
             return NotFound();
@@ -59,7 +60,7 @@ public class DriverController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
-        var driver = _driverService.Get(id);
+        var driver = await _driverService.Get(id);
 
         if (driver == null)
             return NotFound();
