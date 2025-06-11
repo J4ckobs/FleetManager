@@ -1,7 +1,12 @@
 using FleetManager.Models;
 using FleetManager.Services;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    ContentRootPath = Directory.GetCurrentDirectory(), // Bieżący katalog
+    WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")
+});
 
 // Add services to the container.
 
