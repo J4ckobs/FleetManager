@@ -52,6 +52,13 @@ public class DriverController : ControllerBase
         if (existingDriver == null)
             return NotFound();
 
+        existingDriver.FirstName = driver.FirstName;
+        existingDriver.LastName = driver.LastName;
+        existingDriver.LicenseNumber = driver.LicenseNumber;
+        existingDriver.LicenseExpiryDate = driver.LicenseExpiryDate;
+        existingDriver.PhoneNumber = driver.PhoneNumber;
+        existingDriver.Email = driver.Email;
+
         await _driverService.Update(existingDriver);
 
         return NoContent();

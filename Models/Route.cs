@@ -1,11 +1,11 @@
 
-
-using Microsoft.VisualBasic;
+using System.ComponentModel.DataAnnotations;
 
 namespace FleetManager.Models;
 
-public class Route
+public class Route : IEntity
 {
+    [Required]
     public int Id { get; set; }
     public string Departure { get; set; } = null!;
     public string Destination { get; set; } = null!;

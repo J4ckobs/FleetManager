@@ -1,11 +1,11 @@
 [
   {
     "Id": 1,
-    "FirstName": "Jan",
+    "FirstName": "Piotr",
     "LastName": "Kowalski",
-    "LicenseNumber": "ABC12345",
-    "LicenseExpiryDate": "2027-04-15T00:00:00",
-    "PhoneNumber": "+48123456789",
+    "LicenseNumber": "ABC12343",
+    "LicenseExpiryDate": "2025-07-03",
+    "PhoneNumber": "1234",
     "Email": "jan.kowalski@example.com",
     "AssignedVehicleLicensePlate": null
   },
@@ -14,19 +14,49 @@
     "FirstName": "Anna",
     "LastName": "Nowak",
     "LicenseNumber": "XYZ67890",
-    "LicenseExpiryDate": "2026-11-30T00:00:00",
-    "PhoneNumber": "+48987654321",
+    "LicenseExpiryDate": "2026-11-30",
+    "PhoneNumber": "\u002B48987654321",
     "Email": "anna.nowak@example.com",
     "AssignedVehicleLicensePlate": "KRA T6J8"
   },
   {
     "Id": 3,
-    "FirstName": "Marek",
-    "LastName": "Wiśniewski",
+    "FirstName": "Mare",
+    "LastName": "Wi\u015Bniewski",
     "LicenseNumber": "LMN45678",
-    "LicenseExpiryDate": "2025-09-10T00:00:00",
-    "PhoneNumber": "+48523942358",
-    "Email": null,
+    "LicenseExpiryDate": "2025-09-10",
+    "PhoneNumber": "\u002B48523942358",
+    "Email": "marek.wisnia3@gmail.com",
+    "AssignedVehicleLicensePlate": null
+  },
+  {
+    "Id": 4,
+    "FirstName": "Tadeusz",
+    "LastName": "Tomczyk",
+    "LicenseNumber": "KPZ 55638",
+    "LicenseExpiryDate": "2033-10-19",
+    "PhoneNumber": "\u002B48523942358",
+    "Email": "tadi.tom12@interia.pl",
+    "AssignedVehicleLicensePlate": null
+  },
+  {
+    "Id": 5,
+    "FirstName": "Tadeusz",
+    "LastName": "Tomc",
+    "LicenseNumber": "KPZ 55638",
+    "LicenseExpiryDate": "2033-10-19",
+    "PhoneNumber": "\u002B48523942358",
+    "Email": "tadi.tom12@interia.pl",
+    "AssignedVehicleLicensePlate": null
+  },
+  {
+    "Id": 6,
+    "FirstName": "Jacka",
+    "LastName": "Raps",
+    "LicenseNumber": "SP 1403G",
+    "LicenseExpiryDate": "2025-06-26",
+    "PhoneNumber": "\u002B48 793 453 634",
+    "Email": "jack0rap@o2.pl",
     "AssignedVehicleLicensePlate": null
   }
 ]

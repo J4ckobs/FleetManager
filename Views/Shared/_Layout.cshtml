@@ -34,7 +34,7 @@
     </style>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
@@ -54,7 +54,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Index", "Driver")">
+                            <a class="nav-link" href="@Url.Action("Index", "DriversList")">
                                 <i class="fas fa-users"></i> Kierowcy
                             </a>
                         </li>
@@ -90,13 +90,15 @@
         </nav>
     </header>
 
-    <main role="main" class="pb-3">
-        @RenderBody()
+    <main role="main" class="flex-grow-1">
+        <div class="container mt-4">
+            @RenderBody()
+        </div>
     </main>
 
     <footer class="text-muted">
-        <div class="container text-center">
-            <p>&copy; 2025 Fleet Manager. Wszystkie prawa zastrzeżone.</p>
+        <div class="container text-center footer">
+            <p class="mb-0">&copy; 2025 Fleet Manager. Wszystkie prawa zastrzeżone.</p>
         </div>
     </footer>
 

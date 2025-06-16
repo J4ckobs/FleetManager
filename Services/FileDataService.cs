@@ -1,8 +1,9 @@
 using System.Text.Json;
+using FleetManager.Models;
 
 namespace FleetManager.Services;
 
-public class FileDataService<T> where T : class
+public class FileDataService<T> where T : IEntity
 {
     private readonly string _filePath;
 
@@ -60,7 +61,13 @@ public class FileDataService<T> where T : class
     public async Task<int> AddAsync(T item)
     {
         var data = await GetAllAsync();
+
+        var lastId = data.Count > 0 ? data.Max(x => x.Id) : 0;
+
+        item.Id = lastId + 1;
+
         data.Add(item);
+
         return await SaveAsync(data);
     }
 

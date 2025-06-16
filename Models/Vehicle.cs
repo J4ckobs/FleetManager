@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FleetManager.Models;
 
-public class Vehicle
+public class Vehicle : IEntity
 {
     [Required]
     public int Id { get; set; }
@@ -11,7 +11,7 @@ public class Vehicle
     public int Year { get; set; }
     public int Mileage { get; set; }
     [Required]
-    public string? LicensePlate { get; set; } = null;
+    public string? LicensePlate { get; set; }
     public VehicleStatus Status { get; set; }
     public int AverageSpeed { get; set; }
 }

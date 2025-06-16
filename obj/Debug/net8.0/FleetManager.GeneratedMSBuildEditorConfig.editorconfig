@@ -20,8 +20,8 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[L:/Pulpit/STUDIA/Studia/Semestr 6/C\#/FleetManager/Views/DriversPage.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyc1BhZ2UuY3NodG1s
+[L:/Pulpit/STUDIA/Studia/Semestr 6/C\#/FleetManager/Views/DriversList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpdmVyc0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [L:/Pulpit/STUDIA/Studia/Semestr 6/C\#/FleetManager/Views/EditDriver.cshtml]
