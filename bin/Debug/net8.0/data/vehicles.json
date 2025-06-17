@@ -1,38 +1,52 @@
 [
   {
-    "id": 1,
-    "brand": "Toyota",
-    "model": "Corolla",
-    "year": 2020,
-    "mileage": 45000,
-    "licenseplate": "KRA 1234",
-    "status": 0
+    "Id": 1,
+    "Brand": "Toyota",
+    "Model": "Corolla",
+    "Year": 2020,
+    "Mileage": 45000,
+    "LicensePlate": "KRA 1234",
+    "AverageSpeed": 57.1,
+    "Status": 0
   },
   {
-    "id": 2,
-    "brand": "Ford",
-    "model": "Focus",
-    "year": 2018,
-    "mileage": 72000,
-    "licenseplate": "KR O3J4D",
-    "status": 2
+    "Id": 2,
+    "Brand": "Ford",
+    "Model": "Focus",
+    "Year": 2018,
+    "Mileage": 72000,
+    "LicensePlate": "KR O3J4D",
+    "AverageSpeed": 68.8,
+    "Status": 2
   },
   {
-    "id": 3,
-    "brand": "Volkswagen",
-    "model": "Golf",
-    "year": 2019,
-    "mileage": 53000,
-    "licenseplate": "KR S0T2R",
-    "status": 1
+    "Id": 3,
+    "Brand": "Volkswagen",
+    "Model": "Golf",
+    "Year": 2019,
+    "Mileage": 53000,
+    "LicensePlate": "KR S0T2R",
+    "AverageSpeed": 58.3,
+    "Status": 0
   },
   {
-    "id": 4,
-    "brand": "Honda",
-    "model": "Civic",
-    "year": 2021,
-    "mileage": 21000,
-    "licenseplate": "KRA T6J8",
-    "status": 0
+    "Id": 4,
+    "Brand": "Honda",
+    "Model": "Civic",
+    "Year": 2021,
+    "Mileage": 21000,
+    "LicensePlate": "KRA T6J8",
+    "AverageSpeed": 84.5,
+    "Status": 0
+  },
+  {
+    "Id": 5,
+    "Brand": "Toyta",
+    "Model": "Ci",
+    "Year": 234,
+    "Mileage": 1234,
+    "LicensePlate": "DFS",
+    "AverageSpeed": 2314,
+    "Status": 0
   }
 ]

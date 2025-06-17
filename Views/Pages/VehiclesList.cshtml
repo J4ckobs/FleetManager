@@ -1,0 +1,121 @@
+@using FleetManager.Models
+@model IEnumerable<Vehicle>
+@{
+    ViewData["Title"] = "Vehicles - Fleet Manager";
+}
+
+<div class="table-container">
+    <h6 class="table-title text-gray-800">Vehicles List</h6>
+
+    @if (Model.Any())
+    {
+        <div id="vehicles-table" class="table-responsive">
+            <button class="btn btn-success" onclick="addBtn()"><i class="fas fa-plus"></i> Add vehicle</button>
+             <table class="table" width=" 100%" style="width:80%; margin: 0 auto;">
+                <thead class="thead-light">
+                    <tr class="table">
+                        <th>Id</th>
+                        <th>Brand and Model</th>
+                        <th>LicensePlate</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var vehicle in Model)
+                    {
+                        <tr>
+                            <td class="vehicle-id">@vehicle.Id</td>
+                            <td class="vehicle-type">@vehicle.Brand @vehicle.Model</td>
+                            <td class="vehicle-license-plate">@vehicle.LicensePlate</td>
+                            <td class="vehicle-status">
+                                <span
+                                    class="badge  @(vehicle.Status == 0 ? "badge-success" : "badge-secondary")">
+                                    @{
+                                        if(vehicle.Status == VehicleStatus.Available)
+                                        {
+                                            <div>Avaliable</div>
+                                        }
+                                        else if(vehicle.Status == VehicleStatus.Assigned)
+                                        {
+                                            <div>Assigned</div>
+                                        }
+                                        else
+                                        {
+                                            <div>In Service</div>
+                                        }
+                                    }
+                                </span>
+                            </td>
+                            <td class="btn btn-light edit-btn" style="margin-left: 15px;">EDIT</td>
+                            <td class="btn btn-danger delete-btn" style="margin-left: 5px; padding-left: 10px; padding-right: 10px;">
+                                <i class="fas fa-times"></i>
+                                </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div id="edit-box" class="table-responsive d-none">
+            <div id="" class="edit-form-container" style="width:80%; margin: 0 auto; background: #f8f9fa; padding: 20px; border-radius: 5px;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="text-gray-800 mb-0">Vehicle editing</h6>
+                </div>
+                <form id="vehicle-form">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">Brand</label>
+                            <input type="text" class="form-control" id="form-brand" name="Brand" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">Model</label>
+                            <input type="text" class="form-control" id="form-model" name="Model" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">Year</label>
+                            <input type="text" class="form-control" id="form-year" name="Year" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">Mileage</label>
+                            <input type="text" class="form-control" id="form-mileage" name="Mileage" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">License Plate</label>
+                            <input type="text" class="form-control" id="form-licensePlate" name="LicensePlate" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-gray-700">Average Speed</label>
+                            <input type="text" class="form-control" id="form-avgSpeed" name="AverageSpeed" required>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-secondary me-2" onclick="cancelEdit()">
+                            Cancel
+                        </button>
+                        <button id="form-submit-btn" type="submit" class="btn btn-primary">
+                            Save Changes
+                        </button>
+                    </div> 
+                </form>  
+            </div>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted text-center">No available vehicles in the system</p>
+    }
+</div>
+</div>
+
+<link rel="stylesheet" href="~/css/style.css">
+<script src="~/js/vehicles.js" asp-append-version="true"></script>

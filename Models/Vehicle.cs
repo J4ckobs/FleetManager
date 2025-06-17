@@ -12,8 +12,8 @@ public class Vehicle : IEntity
     public int Mileage { get; set; }
     [Required]
     public string? LicensePlate { get; set; }
+    public float AverageSpeed { get; set; }
     public VehicleStatus Status { get; set; }
-    public int AverageSpeed { get; set; }
 }
 
 public enum VehicleStatus

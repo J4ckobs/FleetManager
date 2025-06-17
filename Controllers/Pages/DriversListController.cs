@@ -4,7 +4,8 @@ using FleetManager.Models;
 
 namespace FleetManager.Controllers
 {
-    [Route("{controller}")]
+    [ApiController]
+    [Route("page/drivers", Name = "DriversList")]
     public class DriversListController : Controller
     {
         private readonly DriverService _driverService;
@@ -21,21 +22,13 @@ namespace FleetManager.Controllers
             {
                 var drivers = (await _driverService.GetAll()).ToList();
 
-                return View("~/Views/DriversList.cshtml", drivers);
+                return View("~/Views/Pages/DriversList.cshtml", drivers);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = $"Błąd podczas ładowania danych: {ex.Message}";
                 return View();
             }
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> UpdateDriver([FromBody] Driver driver)
-        {
-            await _driverService.Update(driver); //VOID!
-
-            return View("~/Views/DriversList.cshtml");
         }
     }
 }

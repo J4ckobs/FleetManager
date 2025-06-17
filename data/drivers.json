@@ -38,25 +38,5 @@
     "PhoneNumber": "523-942-358",
     "Email": "tadi.tom12@interia.pl",
     "AssignedVehicleLicensePlate": null
-  },
-  {
-    "Id": 5,
-    "FirstName": "Tadeusz",
-    "LastName": "Gru\u017Ai\u0144ski",
-    "LicenseNumber": "KPZ 55638",
-    "LicenseExpiryDate": "2033-10-19",
-    "PhoneNumber": "523-942-358",
-    "Email": "tadi.tom12@interia.pl",
-    "AssignedVehicleLicensePlate": null
-  },
-  {
-    "Id": 6,
-    "FirstName": "Jacka",
-    "LastName": "Raps",
-    "LicenseNumber": "SP 1403G",
-    "LicenseExpiryDate": "2025-06-26",
-    "PhoneNumber": "793-453-634",
-    "Email": "jack0rap@o2.pl",
-    "AssignedVehicleLicensePlate": null
   }
 ]

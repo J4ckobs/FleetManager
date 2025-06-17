@@ -1,14 +1,14 @@
-let idOfEditedDriver = -1;
+let idOfEditedVehicle = -1;
 
-document.getElementById("driver-form").addEventListener("submit", async function(e) {
+document.getElementById("vehicle-form").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     try {
         const formData = new FormData(this);
         const jsonData = Object.fromEntries(formData);
 
-        const result = (idOfEditedDriver != -1)? (await updateDriver(jsonData)) : (await addDriver(jsonData));
-        console.log('Submit driver triggered: ',jsonData);
+        const result = (idOfEditedVehicle != -1)? (await updateVehicle(jsonData)) : (await addVehicle(jsonData));
+        console.log('Submit vehicle triggered: ',jsonData);
         this.reset();
         changeView(true);
 
@@ -18,24 +18,24 @@ document.getElementById("driver-form").addEventListener("submit", async function
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('drivers-table').addEventListener('click', function(e) {
+    document.getElementById('vehicles-table').addEventListener('click', function(e) {
         if (e.target.classList.contains('delete-btn')) {
-            deleteDriver(e);
+                deleteVehicle(e);
         }
         if(e.target.classList.contains('edit-btn')) {
-            editDriver(e);
+            editVehicle(e);
         }
     });
 });
 
-function editDriver(e) {
+function editVehicle(e) {
     //isEditMode = true;
     changeView(false);
 
-    idOfEditedDriver = e.target.parentElement.querySelector(".driver-id").textContent;
+    idOfEditedVehicle = e.target.parentElement.querySelector(".vehicle-id").textContent;
 
     // GET/id
-    fetch("/api/drivers/" + idOfEditedDriver).then(response => {
+    fetch("/api/vehicles/" + idOfEditedVehicle).then(response => {
             if (!response.ok) {
                 throw new Error('Błąd HTTP: ' + response.status);
             }
@@ -43,12 +43,12 @@ function editDriver(e) {
         }).then(data => {
             console.log('Dane kierowcy:', data);
 
-            document.getElementById('form-firstName').value = data.firstName || '';
-            document.getElementById('form-lastName').value = data.lastName || '';
-            document.getElementById('form-licenseNumber').value = data.licenseNumber || '';
-            document.getElementById('form-licenseExpiryDate').value = data.licenseExpiryDate || '';
-            document.getElementById('form-phone').value = data.phoneNumber || '';
-            document.getElementById('form-email').value = data.email || '';
+            document.getElementById('form-brand').value = data.brand || '';
+            document.getElementById('form-model').value = data.model || '';
+            document.getElementById('form-year').value = data.year || '';
+            document.getElementById('form-mileage').value = data.mileage || '';
+            document.getElementById('form-licensePlate').value = data.licensePlate || '';
+            document.getElementById('form-avgSpeed').value = data.averageSpeed || '';
       })
         .catch(error => {
             console.error('Błąd:', error);
@@ -57,13 +57,13 @@ function editDriver(e) {
 }
 
 function addBtn() {
-    idOfEditedDriver = -1;
+    idOfEditedVehicle = -1;
     changeView(false);
     console.log("Add btn");
 }
 
-function addDriver(data) {
-    fetch("/api/drivers", {
+function addVehicle(data) {
+    fetch("/api/vehicles", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -81,16 +81,16 @@ function addDriver(data) {
         })
         .catch(error => {
             console.error('Błąd:', error);
-            alert('Nie udało się dodac kierowcy');
+            alert('Nie udało się dodac pojazdu');
         });
 
     return "Adding func";
 }
 
-function updateDriver(data) {
-    data["Id"] = idOfEditedDriver;
+function updateVehicle(data) {
+    data["Id"] = idOfEditedVehicle;
 
-    fetch("/api/drivers/" + idOfEditedDriver, {
+    fetch("/api/vehicles/" + idOfEditedVehicle, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -108,7 +108,7 @@ function updateDriver(data) {
         })
         .catch(error => {
             console.error('Błąd:', error);
-            alert('Nie udało się dodac kierowcy');
+            alert('Nie udało się dodac pojazdu');
         });
 
     return "Updating func";
@@ -120,7 +120,7 @@ function cancelEdit() {
 
 function changeView(hideForm) {
 
-    const driverList = document.getElementById("drivers-table");
+    const driverList = document.getElementById("vehicles-table");
     const formBox = document.getElementById("edit-box");
     
     if(hideForm) { //Hides form, shows list
@@ -132,10 +132,10 @@ function changeView(hideForm) {
     }
 }
 
-function deleteDriver(e) {
-    idOfEditedDriver = e.target.parentElement.querySelector(".driver-id").textContent;
-    
-    fetch("/api/drivers/" + idOfEditedDriver, {
+function deleteVehicle(e) {
+    idOfEditedVehicle = e.target.parentElement.querySelector(".vehicle-id").textContent;
+
+    fetch("/api/vehicles/" + idOfEditedVehicle, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -150,17 +150,3 @@ function deleteDriver(e) {
         console.error('Błąd:', error);
     });
 }
-
-function phoneMask() {
-    const input = this;
-    let num = input.value.replace(/\D/g, '');
-    input.value = num.substring(0, 3) 
-        + (num.length > 3 ? '-' : '') 
-        + num.substring(3, 6) 
-        + (num.length > 6 ? '-' : '') 
-        + num.substring(6, 9);
-}
-
-document.querySelectorAll('[type="tel"]').forEach(input => {
-    input.addEventListener('keyup', phoneMask);
-});
