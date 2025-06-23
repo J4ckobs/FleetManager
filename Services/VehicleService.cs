@@ -5,18 +5,17 @@ namespace FleetManager.Services;
 
 public class VehicleService
 {
-    public FileDataService<Vehicle> dataService;
+    public FileDataService<Vehicle> vehicleService;
 
-    public int Index = 4;
-
-    public VehicleService(FileDataService<Vehicle> _dataService)
+    public VehicleService(FileDataService<Vehicle> _vehicleService)
     {
-        dataService = _dataService;
+        vehicleService = _vehicleService;
     }
 
-    public async Task<IEnumerable<Vehicle>> GetAll() => await dataService.GetAllAsync();
-    public async Task<Vehicle?> Get(int id) => await dataService.GetByPredictateAsync(x => x.Id == id);
-    public async Task Add(Vehicle vehicle) => await dataService.AddAsync(vehicle);
-    public async Task Delete(int id) => await dataService.RemoveByPredictateAsync(x => x.Id == id);
-    public async Task Update(Vehicle vehicle) => await dataService.UpdateAsync(x => x.Id == vehicle.Id, vehicle);
+    public async Task<IEnumerable<Vehicle>> GetAll() => await vehicleService.GetAllAsync();
+    public async Task<IEnumerable<Vehicle>> GetAvaliableVehicles() => await vehicleService.GetSelectedAsync(vehicle => vehicle.Status == VehicleStatus.Available);
+    public async Task<Vehicle?> Get(int id) => await vehicleService.GetByPredictateAsync(vehicle => vehicle.Id == id);
+    public async Task Add(Vehicle vehicle) => await vehicleService.AddAsync(vehicle);
+    public async Task Delete(int id) => await vehicleService.RemoveByPredictateAsync(vehicle => vehicle.Id == id);
+    public async Task Update(Vehicle vehicle) => await vehicleService.UpdateAsync(v => v.Id == vehicle.Id, vehicle);
 }

@@ -7,10 +7,12 @@ public class Route : IEntity
 {
     [Required]
     public int Id { get; set; }
-    public string Departure { get; set; } = null!;
-    public string Destination { get; set; } = null!;
-    public Vehicle? AssignedVehicle { get; set; } = null;
-    public Driver? AssignedDriver { get; set; } = null;
+    public string? Departure { get; set; }
+    public string? Destination { get; set; }
+    public string? DepartureCoords { get; set; }
+    public string? DestinationCoords { get; set; }
+    public int AssignedVehicle { get; set; } = -1;
+    public int AssignedDriver { get; set; } = -1;
     public float Distance { get; set; } = -1;
     public DateTime DepartureTime;
     public DateTime ArrivalTime;

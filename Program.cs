@@ -1,5 +1,6 @@
 using FleetManager.Models;
 using FleetManager.Services;
+using Route = FleetManager.Models.Route;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -14,7 +15,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddControllersWithViews();
 
-
 builder.Services.AddScoped<FileDataService<Vehicle>>(provider =>
 {
     var env = provider.GetRequiredService<IWebHostEnvironment>();
@@ -27,8 +27,15 @@ builder.Services.AddScoped<FileDataService<Driver>>(provider =>
     return new FileDataService<Driver>("drivers", env);
 });
 
+builder.Services.AddScoped<FileDataService<Route>>(provider =>
+{
+    var env = provider.GetRequiredService<IWebHostEnvironment>();
+    return new FileDataService<Route>("routes", env);
+});
+
 builder.Services.AddScoped<VehicleService>();
 builder.Services.AddScoped<DriverService>();
+builder.Services.AddScoped<RouteService>();
 
 var app = builder.Build();
 

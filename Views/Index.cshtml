@@ -166,8 +166,8 @@
                                             <td>@driver.Email</td>
                                             <td>
                                                 <span
-                                                    class="badge  @(driver.AssignedVehicleLicensePlate == null ? "badge-success" : "badge-secondary")">
-                                                    @(driver.AssignedVehicleLicensePlate == null ?
+                                                    class="badge  @(driver.RouteId == -1 ? "badge-success" : "badge-secondary")">
+                                                    @(driver.RouteId == -1 ?
                                                                                                 "Avaliable" : "Assigned")
                                         </span>
                                     </td>

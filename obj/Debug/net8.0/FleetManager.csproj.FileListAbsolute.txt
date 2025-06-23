@@ -46,3 +46,4 @@ L:\Pulpit\STUDIA\Studia\Semestr 6\C#\FleetManager\bin\Debug\net8.0\data\drivers.
 L:\Pulpit\STUDIA\Studia\Semestr 6\C#\FleetManager\obj\Debug\net8.0\FleetManager.RazorAssemblyInfo.cache
 L:\Pulpit\STUDIA\Studia\Semestr 6\C#\FleetManager\obj\Debug\net8.0\FleetManager.RazorAssemblyInfo.cs
 L:\Pulpit\STUDIA\Studia\Semestr 6\C#\FleetManager\bin\Debug\net8.0\FleetManager.staticwebassets.runtime.json
+L:\Pulpit\STUDIA\Studia\Semestr 6\C#\FleetManager\bin\Debug\net8.0\data\routes.json

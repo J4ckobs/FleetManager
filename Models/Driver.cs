@@ -12,5 +12,5 @@ public class Driver : IEntity
     public DateOnly LicenseExpiryDate { get; set; }
     public string? PhoneNumber { get; set; }
     public string? Email { get; set; }
-    public string? AssignedVehicleLicensePlate { get; set; } = null;
+    public int? RouteId { get; set; } = -1;
 }

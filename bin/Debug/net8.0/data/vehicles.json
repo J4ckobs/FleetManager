@@ -38,15 +38,5 @@
     "LicensePlate": "KRA T6J8",
     "AverageSpeed": 84.5,
     "Status": 0
-  },
-  {
-    "Id": 5,
-    "Brand": "Toyta",
-    "Model": "Ci",
-    "Year": 234,
-    "Mileage": 1234,
-    "LicensePlate": "DFS",
-    "AverageSpeed": 2314,
-    "Status": 0
   }
 ]

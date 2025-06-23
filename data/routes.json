@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "Departure": "S5, Pak\u00F3wka, Go\u0142aszyn, gmina Bojanowo, Rawicz County, Greater Poland Voivodeship, 63-940, Poland",
+    "Destination": "Chrzanowo, gmina Przytu\u0142y, \u0141om\u017Ca County, Podlaskie Voivodeship, 19-215, Poland",
+    "DepartureCoords": "51.68277383281327, 16.765829891126543",
+    "DestinationCoords": "53.39315656538044, 22.347995134272985",
+    "AssignedVehicle": 1,
+    "AssignedDriver": 1,
+    "Distance": 590.97
+  },
+  {
+    "Id": 2,
+    "Departure": "645, Kawa\u0142, Dawia, gmina \u0141yse, Ostro\u0142\u0119ka County, Masovian Voivodeship, 07-436, Poland",
+    "Destination": "\u041D\u0438\u0436\u0430\u043D\u043A\u043E\u0432\u0438\u0447\u0456, ulica Adama Mickiewicza, Posada, Zab\u0142otce, Nyzhankovychi, Dobromyl Urban Hromada, Sambir Raion, 82011, Ukraine",
+    "DepartureCoords": "53.33579341819874, 21.61070759951011",
+    "DestinationCoords": "49.687177981431944, 22.81944416790795",
+    "AssignedVehicle": -1,
+    "AssignedDriver": -1,
+    "Distance": 576.4
+  },
+  {
+    "Id": 3,
+    "Departure": "Drew-Stol, Stary Mystk\u00F3wiec, gmina Somianka, Wyszk\u00F3w County, Masovian Voivodeship, 07-206, Poland",
+    "Destination": "K\u0119szyca, gmina Mi\u0119dzyrzecz, Mi\u0119dzyrzecz County, Lubusz Voivodeship, 66-305, Poland",
+    "DepartureCoords": "52.625560980673335, 21.275752984979857",
+    "DestinationCoords": "52.42084796422748, 15.501093671971853",
+    "AssignedVehicle": -1,
+    "AssignedDriver": -1,
+    "Distance": 487.52
+  },
+  {
+    "Id": 4,
+    "Departure": "D\u0119bczyn, Kr\u0105\u017Ckowo, gmina S\u0142awa, Wschowa County, Lubusz Voivodeship, 67-410, Poland",
+    "Destination": "53, Szwendrowy Most, gmina Lelis, Ostro\u0142\u0119ka County, Masovian Voivodeship, 07-402, Poland",
+    "DepartureCoords": "51.80182150078305, 16.04406625611311",
+    "DestinationCoords": "53.140180585580424, 21.49436932816162",
+    "AssignedVehicle": -1,
+    "AssignedDriver": -1,
+    "Distance": 542.01
+  }
+]

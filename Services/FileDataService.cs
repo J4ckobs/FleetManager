@@ -43,6 +43,14 @@ public class FileDataService<T> where T : IEntity
             return new List<T>();
         }
     }
+    public async Task<IEnumerable<T>> GetSelectedAsync(Func<T, bool> pred)
+    {
+        var data = await GetAllAsync();
+
+        var result = data.Where(pred);
+
+        return result;
+    }
     public async Task<T?> GetByPredictateAsync(Func<T, bool> pred)
     {
         var data = await GetAllAsync();

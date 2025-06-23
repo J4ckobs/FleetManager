@@ -28,12 +28,13 @@ namespace FleetManager.Controllers
 
                 var dashboardData = new DashboardViewModel
                 {
-                    TotalVehicles = vehicles.Count(),
                     TotalDrivers = drivers.Count(),
+                    AvailableDrivers = drivers.Count(d => d.RouteId == -1),
+                    RecentDrivers = drivers.OrderByDescending(d => d.Id).Take(5).ToList(),
+                    
+                    TotalVehicles = vehicles.Count(),
                     ActiveVehicles = vehicles.Count(v => v.Status == 0),
-                    AvailableDrivers = drivers.Count(d => d.AssignedVehicleLicensePlate == null),
-                    RecentVehicles = vehicles.OrderByDescending(v => v.Id).Take(5).ToList(),
-                    RecentDrivers = drivers.OrderByDescending(d => d.Id).Take(5).ToList()
+                    RecentVehicles = vehicles.OrderByDescending(v => v.Id).Take(5).ToList()
                 };
 
                 return View("~/Views/Index.cshtml", dashboardData);

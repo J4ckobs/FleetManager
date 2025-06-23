@@ -1,0 +1,130 @@
+@using FleetManager.Models
+@model IEnumerable<Route>
+@{
+    ViewData["Title"] = "Drivers - Fleet Manager";
+}
+
+
+<div class="table-container">
+    <h6 class="table-title text-gray-800">Routes List</h6>
+    <button class="btn btn-success" onclick="addBtn()"><i class="fas fa-plus"></i> Add Route</button>
+    @if (Model.Any())
+    {
+        <div id="routes-table" class="table-responsive">
+            <table class="table" width=" 100%" style="width:90%; margin: 0 auto;">
+                <thead class="thead-light">
+                    <tr class="table">
+                        <th>Id</th>
+                        <th>Departure</th>
+                        <th>Destination</th>
+                        <th>Filled</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var route in Model)
+                    {
+                        <tr>
+                            <td class="route-id">@route.Id</td>
+                            <td class="route-departue">@route.Departure</td>
+                            <td class="route-destination">@route.Destination</td>
+                            <td class="route-Status">
+                                <span class="badge @((route.Departure != null && 
+                                                route.Destination != null &&
+                                                route.AssignedDriver != -1 &&
+                                                route.AssignedVehicle != -1) ? 
+                                    "badge-success" : "badge-secondary" )">
+
+                                    @((route.Departure != null &&
+                                        route.Destination != null &&
+                                        route.AssignedDriver != -1 &&
+                                        route.AssignedVehicle != -1) ? 
+                                        "OK" : "Not Complete")
+                                </span>
+                            </td>
+                            <td class="btn btn-light edit-btn" style="margin-left: 15px;">EDIT</td>
+                            <td class="btn btn-danger delete-btn"
+                                style="margin-left: 5px; padding-left: 10px; padding-right: 10px;">
+                                <i class="fas fa-times"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    }
+    else
+    {
+        <p id="routes-table" class="text-muted text-center">There is no routes in the system</p>
+    }
+    <div id="edit-box" class="table-responsive d-none">
+        <div id="" class="edit-form-container"
+            style="width:80%; margin: 0 auto; background: #f8f9fa; padding: 20px; border-radius: 5px;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="text-gray-800 mb-0">Edycja trasy</h6>
+            </div>
+            <form id="route-form">
+                <div class="row">
+                    <div id="map" style="height: 500px; width: 100%;"></div>
+                    <button type="button" onclick="calculateRoute()">Calculate Route</button>
+                </div>
+
+                <div class="row">
+                    <!-- Imię -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-gray-700">Departure</label>
+                        <input type="text" class="form-control" id="form-departure" name="departure" required readonly>
+                    </div>
+
+                    <!-- Nazwisko -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-gray-700">Destination</label>
+                        <input type="text" class="form-control" id="form-destination" name="destination" required readonly>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Numer prawa jazdy -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-gray-700">Distance</label>
+                        <input type="text" class="form-control" id="form-distance" name="distance" readonly>
+                    </div>
+                </div>
+
+                    <!-- Data ważności prawa jazdy -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-gray-700">Assigned Driver</label>
+                        <select class="form-control" id="form-assignedDriver" name="assignedDriver">
+                            <option value="-1">None</option>
+                        </select>
+                    </div>
+
+                    <!-- Numer prawa jazdy -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label text-gray-700">Assigned Vehicle</label>
+                        <select class="form-control" id="form-assignedVehicle" name="assignedVehicle">
+                            <option value="-1">None</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Przyciski -->
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="btn btn-secondary me-2" onclick="cancelEdit()">
+                        Anuluj
+                    </button>
+                    <button id="form-submit-btn" type="submit" class="btn btn-primary">
+                        Zapisz zmiany
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link rel="stylesheet" href="~/css/style.css">
+<script src="~/js/routes.js" asp-append-version="true"></script>
