@@ -39,10 +39,11 @@
                                         {
                                             <div>Assigned</div>
                                         }
+                                        /*
                                         else
                                         {
                                             <div>In Service</div>
-                                        }
+                                        }*/
                                     }
                                 </span>
                             </td>
@@ -55,6 +56,11 @@
                 </tbody>
             </table>
         </div>
+    }
+    else
+    {
+        <p id="routes-table" class="text-muted text-center">No available vehicles in the system</p>
+    }
 
         <div id="edit-box" class="table-responsive d-none">
             <div id="" class="edit-form-container" style="width:80%; margin: 0 auto; background: #f8f9fa; padding: 20px; border-radius: 5px;">
@@ -103,19 +109,22 @@
                             Cancel
                         </button>
                         <button id="form-submit-btn" type="submit" class="btn btn-primary">
-                            Save Changes
+                            Save
                         </button>
                     </div> 
                 </form>  
             </div>
         </div>
-    }
-    else
-    {
-        <p class="text-muted text-center">No available vehicles in the system</p>
-    }
 </div>
 </div>
 
 <link rel="stylesheet" href="~/css/style.css">
 <script src="~/js/vehicles.js" asp-append-version="true"></script>
+
+@if(ViewBag.ShowAddForm == true)
+{
+    <script> 
+        addBtn(); 
+        window.history.replaceState({}, document.title, window.location.pathname);
+    </script>
+}

@@ -67,13 +67,13 @@ async function reverseGeocode(latlng, type) {
         const data = await response.json();
         document.getElementById(type).value = data.display_name;
     } catch (error) {
-        console.error("Błąd geokodowania:", error);
+        console.error("Error occured whilre  geocoding:", error);
     }
 }
 
 async function calculateRoute() {
     if (!departureCoords || !destinationCoords) {
-        alert("Wybierz oba punkty na mapie");
+        alert("Choose two points on the map");
         return;
     }
 
@@ -101,7 +101,9 @@ async function calculateRoute() {
             }).addTo(map);
         }
     } catch (error) {
-        alert("Błąd obliczania trasy: " + error.message);
+        alert(
+            "An error occurred while calculating the route: " + error.message
+        );
     }
 }
 
@@ -111,7 +113,7 @@ async function getAvaliableDriversAndVehicles() {
     const data = fetch("/page/routes/avaliable-drivers-and-vehicles")
         .then((response) => {
             if (!response.ok) {
-                throw new Error("Błąd HTTP: " + response.status);
+                throw new Error("HTTP error: " + response.status);
             }
             return response.json();
         })
@@ -123,24 +125,23 @@ async function getAvaliableDriversAndVehicles() {
             console.log("Pojazdy:", vehicles);
 
             data.avaliableDrivers.forEach((element) => {
-                const select = document.getElementById("form-assignedDriver");
-                const opcja = document.createElement("option");
-                opcja.value = element["id"];
-                opcja.textContent = element["name"] + " " + element["lastName"];
-                select.appendChild(opcja);
+                addSelectOption(
+                    "form-assignedDriver",
+                    element["id"],
+                    element["name"] + " " + element["lastName"]
+                );
             });
 
             data.avaliableVehicles.forEach((element) => {
-                const select = document.getElementById("form-assignedVehicle");
-                const opcja = document.createElement("option");
-                opcja.value = element["id"];
-                opcja.textContent =
+                addSelectOption(
+                    "form-assignedVehicle",
+                    element["id"],
                     element["licensePlate"] +
-                    " - " +
-                    element["brand"] +
-                    " - " +
-                    element["model"];
-                select.appendChild(opcja);
+                        " - " +
+                        element["brand"] +
+                        " - " +
+                        element["model"]
+                );
             });
         })
         .catch((error) => {
@@ -206,30 +207,31 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 async function editRoute(e) {
-    changeView(false);
     idOfEditedRoute =
-        //e.target.parentElement.getElementById("route-id").textContent; //querySelector(".route-id").textContent;
         e.target.parentElement.querySelector("td.route-id").textContent;
 
-    // GET/id
     fetch("/api/routes/" + idOfEditedRoute)
         .then((response) => {
             if (!response.ok) {
-                throw new Error("Błąd HTTP: " + response.status);
+                throw new Error("HTTP error: " + response.status);
             }
-            return response.json(); // Parsuje odpowiedź JSON
+            return response.json();
         })
         .then((data) => {
-            console.log("Dane trasy:", data);
+            console.log("Route data:", data);
 
             document.getElementById("form-departure").value =
                 data.departure || "";
             document.getElementById("form-destination").value =
                 data.destination || "";
-            document.getElementById("form-assignedVehicle").value =
-                data.assignedVehicle || "";
-            document.getElementById("form-assignedDriver").value =
-                data.assignedDriver || "";
+
+            setCurrentDriverAndvehicle(
+                data.assignedDriver,
+                data.assignedVehicle
+            );
+
+            changeView(false);
+
             document.getElementById("form-distance").value =
                 data.distance + " km" || "";
 
@@ -257,7 +259,7 @@ async function editRoute(e) {
         })
         .catch((error) => {
             console.error("Błąd:", error);
-            alert("Nie udało się pobrać danych", error);
+            alert("Failed to fetch data", error);
         });
 }
 
@@ -268,28 +270,26 @@ function addBtn() {
 }
 
 async function addRoute(data) {
-    fetch("/api/routes", {
+    fetch("/page/routes/validate-driver-and-vehicle/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), // Convert to JSON string
+        body: JSON.stringify(data),
     })
         .then((response) => {
-            console.log("Response status:", response.status); // Sprawdź status
+            console.log("Response status:", response.status);
             console.log("Response ok:", response.ok);
         })
         .then((responseText) => {
             console.log("Raw response:", responseText);
 
-            //window.location.reload();
+            window.location.reload();
         })
         .catch((error) => {
-            console.error("Błąd:", error);
-            alert("Nie udało się dodac trasy");
+            console.error("Error:", error);
+            alert("Failed to add route");
         });
-
-    return "Adding func";
 }
 
 async function updateRoute(data) {
@@ -297,28 +297,26 @@ async function updateRoute(data) {
 
     console.log(data);
 
-    fetch("/api/routes/" + idOfEditedRoute, {
+    fetch("/page/routes/validate-driver-and-vehicle/" + idOfEditedRoute, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), // Convert to JSON string
+        body: JSON.stringify(data),
     })
         .then((response) => {
-            console.log("Response status:", response.status); // Sprawdź status
+            console.log("Response status:", response.status);
             console.log("Response ok:", response.ok);
         })
         .then((responseText) => {
             console.log("Raw response:", responseText);
 
-            // window.location.reload();
+            window.location.reload();
         })
         .catch((error) => {
-            console.error("Błąd:", error);
-            alert("Nie udało się dodac trasy");
+            console.error("Error:", error);
+            alert("Failed to add route");
         });
-
-    return "Updating func";
 }
 
 function cancelEdit() {
@@ -334,19 +332,8 @@ function changeView(hideForm) {
         driverList.classList.remove("d-none");
         formBox.classList.add("d-none");
 
-        let select = document.getElementById("form-assignedDriver");
-        select.length = 0;
-        let opcja = document.createElement("option");
-        opcja.value = -1;
-        opcja.textContent = "None";
-        select.appendChild(opcja);
-
-        select = document.getElementById("form-assignedVehicle");
-        select.length = 0;
-        opcja = document.createElement("option");
-        opcja.value = -1;
-        opcja.textContent = "None";
-        select.appendChild(opcja);
+        addSelectOption("form-assignedDriver", -1, "None", false, true);
+        addSelectOption("form-assignedVehicle", -1, "None", false, true);
 
         clearMarkers();
     } else {
@@ -356,18 +343,13 @@ function changeView(hideForm) {
 
         initializeMap();
         map.invalidateSize();
-        /*setTimeout(() => {
-            initializeMap();
-            map.invalidateSize(); // Odśwież mapę
-        }, 100);*/
 
-        const data = getAvaliableDriversAndVehicles();
+        getAvaliableDriversAndVehicles();
     }
 }
 
 async function deleteRoute(e) {
     idOfEditedRoute =
-        //e.target.parentElement.querySelector(".route-id").textContent;
         e.target.parentElement.querySelector("td.route-id").textContent;
     fetch("/api/routes/" + idOfEditedRoute, {
         method: "DELETE",
@@ -378,9 +360,69 @@ async function deleteRoute(e) {
         .then((response) => {
             console.log("Status: ", response);
 
-            //window.location.reload();
+            window.location.reload();
         })
         .catch((error) => {
-            console.error("Błąd:", error);
+            console.error("Error:", error);
         });
+}
+
+async function setCurrentDriverAndvehicle(driverId, vehicleId) {
+    console.log("Getting driver: ", driverId, " and vehicle: ", vehicleId);
+
+    fetch(
+        "/page/routes/current-driver-and-vehicle/" + driverId + "/" + vehicleId
+    )
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error("HTTP error: " + response.status);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.currentDriver["id"] != -1)
+                addSelectOption(
+                    "form-assignedDriver",
+                    data.currentDriver["id"],
+                    data.currentDriver["name"] +
+                        " " +
+                        data.currentDriver["lastName"],
+                    true
+                );
+
+            if (data.currentVehicle["id"] != -1)
+                addSelectOption(
+                    "form-assignedVehicle",
+                    data.currentVehicle["id"],
+                    data.currentVehicle["licensePlate"] +
+                        " - " +
+                        data.currentVehicle["brand"] +
+                        " - " +
+                        data.currentVehicle["model"],
+                    true
+                );
+            return data;
+        })
+        .catch((error) => {
+            console.log("Error: ", error);
+        });
+}
+
+function addSelectOption(
+    formElement,
+    optionValue,
+    optionText,
+    isSelected = false,
+    clearSelectBeforeAdding = false
+) {
+    select = document.getElementById(formElement);
+
+    if (clearSelectBeforeAdding) select.length = 0;
+
+    option = document.createElement("option");
+    option.value = optionValue;
+    option.textContent = optionText;
+    option.selected = isSelected;
+
+    select.appendChild(option);
 }

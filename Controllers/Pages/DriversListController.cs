@@ -16,17 +16,19 @@ namespace FleetManager.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? action = null)
         {
             try
             {
                 var drivers = (await _driverService.GetAll()).ToList();
 
+                ViewBag.ShowAddForm = action == "add";
+
                 return View("~/Views/Pages/DriversList.cshtml", drivers);
             }
             catch (Exception ex)
             {
-                ViewBag.Error = $"Błąd podczas ładowania danych: {ex.Message}";
+                ViewBag.Error = $"Error occured while trying to load the data: {ex.Message}";
                 return View();
             }
         }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FleetManager.Services;
 using FleetManager.Models;
-using System.Diagnostics.Eventing.Reader;
+using FleetManager.ViewModels;
 
 namespace FleetManager.Controllers
 {
@@ -44,7 +44,7 @@ namespace FleetManager.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = $"Błąd podczas ładowania danych: {ex.Message}";
+                ViewBag.Error = $"Error occured while trying to load the data: {ex.Message}";
                 return View();
             }
         }
@@ -60,9 +60,6 @@ namespace FleetManager.Controllers
                 Id = d.Id,
                 Name = d.FirstName,
                 LastName = d.LastName,
-                PhoneNumber = d.PhoneNumber,
-                Email = d.Email
-
             }).ToList();
 
             var vehiclesList = vehicles.Select(v => new VehicleViewModel
@@ -70,7 +67,6 @@ namespace FleetManager.Controllers
                 Id = v.Id,
                 Brand = v.Brand,
                 Model = v.Model,
-                Mileage = v.Mileage,
                 LicensePlate = v.LicensePlate
             }).ToList();
 
@@ -80,29 +76,142 @@ namespace FleetManager.Controllers
                 AvaliableVehicles = vehiclesList
             });
         }
-    }
 
-    public class DriverViewModel
-    {
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? LastName { get; set; }
-        public string? PhoneNumber { get; set; }
-        public string? Email { get; set; }
-    }
+        [HttpGet("current-driver-and-vehicle/{driverId}/{vehicleId}")]
+        public async Task<ActionResult<CurrentDriverAndVehicle>> GetCurrentDriverAndVehicle(int driverId, int vehicleId)
+        {
+            var driver = await _driverService.Get(driverId);
+            var vehicle = await _vehicleService.Get(vehicleId);
 
-    public class VehicleViewModel
-    {
-        public int Id { get; set; }
-        public string? Brand { get; set; }
-        public string? Model { get; set; }
-        public int Mileage { get; set; }
-        public string? LicensePlate { get; set; }
-    }
+            var currentDriver = new DriverViewModel();
+            var currentVehicle = new VehicleViewModel();
 
-    public class DriversVehiclesRequest
-    {
-        public List<DriverViewModel>? AvaliableDrivers { get; set; }
-        public List<VehicleViewModel>? AvaliableVehicles { get; set; }
+            if (driver != null)
+                currentDriver = new DriverViewModel
+                {
+                    Id = driver.Id,
+                    Name = driver.FirstName,
+                    LastName = driver.LastName,
+                };
+
+            if (vehicle != null)
+                currentVehicle = new VehicleViewModel
+                {
+                    Id = vehicle.Id,
+                    Brand = vehicle.Brand,
+                    Model = vehicle.Model,
+                    LicensePlate = vehicle.LicensePlate
+                };
+
+            return Ok(new CurrentDriverAndVehicle
+            {
+                CurrentDriver = currentDriver,
+                CurrentVehicle = currentVehicle
+            });
+        }
+        [HttpPost("validate-driver-and-vehicle")]
+        public async Task<ActionResult> CreateRouteValidateDriverAndVehicle([FromBody] Models.Route route)
+        {
+            var driverValidateStatus = await ValidateDriver(route.AssignedDriver, route.Id);
+            var vehicleValidateStatus = await ValidateVehicle(route.AssignedVehicle, route.Id);
+
+            await _routeService.Add(route);
+
+            return Ok();
+        }
+
+        [HttpPut("validate-driver-and-vehicle/{id}")]
+        public async Task<ActionResult> UpdateRouteValidateDriverAndVehicle([FromBody] Models.Route route)
+        {
+            var driverValidateStatus = await ValidateDriver(route.AssignedDriver, route.Id);
+            var vehicleValidateStatus = await ValidateVehicle(route.AssignedVehicle, route.Id);
+
+            await _routeService.Update(route);
+            return Ok();
+        }
+
+        private async Task<bool> ValidateDriver(int assignedDriver, int routeId)
+        {
+            if (assignedDriver == -1)
+                return false;
+
+            var drivers = await _driverService.GetAll();
+
+            var currentDriver = drivers.FirstOrDefault(x => x.RouteId == routeId);
+
+            if (currentDriver != null && currentDriver.Id == assignedDriver)
+                return true;
+
+            if (currentDriver != null)
+            {
+                currentDriver.RouteId = -1;
+                await _driverService.Update(currentDriver);
+            }
+
+            try
+            {
+                var newDriver = drivers.FirstOrDefault(x => x.Id == assignedDriver);
+
+                if (newDriver == null)
+                {
+                    Console.WriteLine($"Driver with ID {assignedDriver} not found");
+                    return false;
+                }
+
+                newDriver.RouteId = routeId;
+
+                await _driverService.Update(newDriver);
+                return true;
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        private async Task<bool> ValidateVehicle(int assignedVehicle, int routeId)
+        {
+            if (assignedVehicle == -1)
+                return false;
+
+            var vehicles = await _vehicleService.GetAll();
+
+            var currentVehicle = vehicles.FirstOrDefault(x => x.RouteId == routeId);
+
+            if (currentVehicle != null && currentVehicle.Id == assignedVehicle)
+                return true;
+
+            if (currentVehicle != null)
+            {
+                currentVehicle.RouteId = -1;
+                currentVehicle.Status = VehicleStatus.Available;
+                await _vehicleService.Update(currentVehicle);
+            }
+
+            try
+            {
+                var newVehicle = vehicles.FirstOrDefault(x => x.Id == assignedVehicle);
+
+                if (newVehicle == null)
+                {
+                    Console.WriteLine($"Vehicle with ID {assignedVehicle} not found");
+                    return false;
+                }
+
+                newVehicle.RouteId = routeId;
+                newVehicle.Status = VehicleStatus.Assigned;
+
+                await _vehicleService.Update(newVehicle);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

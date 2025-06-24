@@ -7,7 +7,8 @@
     "Mileage": 45000,
     "LicensePlate": "KRA 1234",
     "AverageSpeed": 57.1,
-    "Status": 0
+    "Status": 1,
+    "RouteId": 0
   },
   {
     "Id": 2,
@@ -17,7 +18,8 @@
     "Mileage": 72000,
     "LicensePlate": "KR O3J4D",
     "AverageSpeed": 68.8,
-    "Status": 2
+    "Status": 0,
+    "RouteId": -1
   },
   {
     "Id": 3,
@@ -27,7 +29,8 @@
     "Mileage": 53000,
     "LicensePlate": "KR S0T2R",
     "AverageSpeed": 58.3,
-    "Status": 0
+    "Status": 1,
+    "RouteId": 2
   },
   {
     "Id": 4,
@@ -37,6 +40,7 @@
     "Mileage": 21000,
     "LicensePlate": "KRA T6J8",
     "AverageSpeed": 84.5,
-    "Status": 0
+    "Status": 0,
+    "RouteId": -1
   }
 ]

@@ -10,10 +10,10 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <h1 class="h2 mb-0">Dashboard Fleet Manager</h1>
-                    <p class="text-muted">Przegląd systemu zarządzania flotą</p>
+                    <p class="text-muted">Fleet Management System Overview</p>
                 </div>
                 <div class="text-end">
-                    <small class="text-muted">Ostatnia aktualizacja: @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</small>
+                    <small class="text-muted">Last update: @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</small>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Łączna liczba pojazdów
+                               Total number of vehicles
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalVehicles</div>
                         </div>
@@ -53,7 +53,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Aktywne pojazdy
+                                Active Vehicles
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ActiveVehicles</div>
                         </div>
@@ -71,7 +71,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                Łączna liczba kierowców
+                                Total number of drivers
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalDrivers</div>
                         </div>
@@ -89,7 +89,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Dostępni kierowcy
+                                Avaliable Drivers
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.AvailableDrivers</div>
                         </div>
@@ -107,28 +107,28 @@
         <div class="col-12">
             <div class="card shadow">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Szybkie akcje</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <a href="" class="btn btn-success btn-block">
-                                <i class="fas fa-user-plus"></i> Dodaj kierowcę
+                            <a href="/page/drivers?action=add" class="btn btn-success btn-block">
+                                <i class="fas fa-user-plus"></i> Add driver
                             </a>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <a href="@Url.Action("Create", "Vehicle")" class="btn btn-primary btn-block">
-                                <i class="fas fa-plus"></i> Dodaj pojazd
+                            <a href="/page/vehicles?action=add" class="btn btn-primary btn-block">
+                                <i class="fas fa-plus"></i> Add vehicle
                             </a>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <a href="@Url.Action("Index", "DriversList")" class="btn btn-info btn-block">
-                                <i class="fas fa-list"></i> Lista kierowców
+                                <i class="fas fa-list"></i> Drivers List
                             </a>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
                             <a href="@Url.Action("Index", "VehiclesList")" class="btn btn-warning btn-block">
-                                <i class="fas fa-car"></i> Lista pojazdów
+                                <i class="fas fa-car"></i> Vehicles List
                             </a>
                         </div>
                     </div>
@@ -137,14 +137,12 @@
         </div>
     </div>
 
-    <!-- Ostatnio dodane -->
     <div class="row">
-        <!-- Ostatnio dodani kierowcy -->
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Ostatnio dodani kierowcy</h6>
-                    <a href="@Url.Action("Index", "Driver")" class="btn btn-sm btn-primary">Zobacz wszystkich</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Last Added Drivers</h6>
+                    <a href="@Url.Action("Index", "DriversList")" class="btn btn-sm btn-primary">See All</a>
                 </div>
                 <div class="card-body">
                     @if (Model.RecentDrivers.Any())
@@ -153,7 +151,7 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Imię i nazwisko</th>
+                                        <th>First and Last Name</th>
                                         <th>Email</th>
                                         <th>Status</th>
                                     </tr>
@@ -168,29 +166,28 @@
                                                 <span
                                                     class="badge  @(driver.RouteId == -1 ? "badge-success" : "badge-secondary")">
                                                     @(driver.RouteId == -1 ?
-                                                                                                "Avaliable" : "Assigned")
+                                                    "Avaliable" : "Assigned")
                                         </span>
                                     </td>
                                 </tr>
-                                                                }
+                    }
                                 </tbody>
                             </table>
                         </div>
                     }
                     else
                     {
-                        <p class="text-muted text-center">Brak dostępnych kierowców w systemie</p>
+                        <p class="text-muted text-center">There is no drivers in the system</p>
                     }
                 </div>
             </div>
         </div>
 
-        <!-- Ostatnio dodane pojazdy -->
         <div class="col-xl-6 col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Ostatnio dodane pojazdy</h6>
-                    <a href="@Url.Action("Index", "Vehicle")" class="btn btn-sm btn-primary">Zobacz wszystkie</a>
+                    <h6 class="m-0 font-weight-bold text-primary">Last Added Vehicles</h6>
+                    <a href="@Url.Action("Index", "VehiclesList")" class="btn btn-sm btn-primary">See All</a>
                 </div>
                 <div class="card-body">
                     @if (Model.RecentVehicles.Any())
@@ -199,9 +196,9 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th>Marka</th>
+                                        <th>Brand</th>
                                         <th>Model</th>
-                                        <th>Rejestracja</th>
+                                        <th>LicensePlate</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
@@ -226,7 +223,7 @@
                     }
                     else
                     {
-                        <p class="text-muted text-center">Brak dostępnych pojazdów w systemie</p>
+                        <p class="text-muted text-center">No available vehicles in the system</p>
                     }
                 </div>
             </div>

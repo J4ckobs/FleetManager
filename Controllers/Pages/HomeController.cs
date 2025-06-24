@@ -41,7 +41,7 @@ namespace FleetManager.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = $"Błąd podczas ładowania danych: {ex.Message}";
+                ViewBag.Error = $"Error occured while trying to load the data: {ex.Message}";
                 return View(new DashboardViewModel());
             }
         }

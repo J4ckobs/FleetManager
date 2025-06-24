@@ -10,15 +10,8 @@ public class Vehicle : IEntity
     public string? Model { get; set; }
     public int Year { get; set; }
     public int Mileage { get; set; }
-    [Required]
     public string? LicensePlate { get; set; }
     public float AverageSpeed { get; set; }
     public VehicleStatus Status { get; set; }
+    public int RouteId { get; set; }
 }
-
-public enum VehicleStatus
-{
-    Available,
-    Assigned,
-    In_Service
-};

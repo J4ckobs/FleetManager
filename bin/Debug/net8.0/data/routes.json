@@ -1,42 +1,32 @@
 [
   {
     "Id": 1,
-    "Departure": "Jezioro, gmina Ostrzesz\u00F3w, Ostrzesz\u00F3w County, Greater Poland Voivodeship, 63-437, Poland",
-    "Destination": "29, Zofiewo, gmina Skrwilno, Rypin County, Kuyavian-Pomeranian Voivodeship, 87-510, Poland",
-    "DepartureCoords": "17.797688779661474, 51.431751825946115",
-    "DestinationCoords": "19.599805118000052, 53.09897176800468",
-    "AssignedVehicle": 3,
+    "Departure": "14, Stare Pra\u017Cuchy, gmina Cek\u00F3w-Kolonia, Kalisz County, Greater Poland Voivodeship, 62-834, Poland",
+    "Destination": "33, Mierzeniec, gmina Gzy, Pu\u0142tusk County, Masovian Voivodeship, 06-126, Poland",
+    "DepartureCoords": "51.89513899196507, 18.336125978311404",
+    "DestinationCoords": "52.79445824472416, 20.929415343237707",
+    "AssignedVehicle": 1,
     "AssignedDriver": 1,
-    "Distance": 366.11
+    "Distance": 305.74
   },
   {
     "Id": 2,
-    "Departure": "Konradowo, gmina Wschowa, Wschowa County, Lubusz Voivodeship, 67-400, Poland",
-    "Destination": "25, Gierwaty, gmina M\u0142ynarze, Mak\u00F3w County, Masovian Voivodeship, 06-231, Poland",
-    "DepartureCoords": "16.259296783518725, 51.77293876123393",
-    "DestinationCoords": "21.40192145633867, 52.980069558305594",
-    "AssignedVehicle": -1,
-    "AssignedDriver": -1,
-    "Distance": 514.31
+    "Departure": "S\u0142oneczna, Stobiecko Szlacheckie-Kolonia, Wierzbica, gmina \u0141adzice, Radomsko County, \u0141\u00F3d\u017A Voivodeship, 97-561, Poland",
+    "Destination": "K\u0119pa-Czerwonki, gmina Bodzan\u00F3w, P\u0142ock County, Masovian Voivodeship, 09-471, Poland",
+    "DepartureCoords": "51.10179728957702, 19.369046318578647",
+    "DestinationCoords": "52.447640168883865, 19.91847203148677",
+    "AssignedVehicle": 1,
+    "AssignedDriver": 2,
+    "Distance": 208.02
   },
   {
     "Id": 3,
-    "Departure": "Rezerwat przyrody Bukowa Kalenica, Stroma, Jug\u00F3w, gmina Nowa Ruda, K\u0142odzko County, Lower Silesian Voivodeship, 57-430, Poland",
-    "Destination": "Kolonie Wo\u017Anawie\u015B, Wo\u017Anawie\u015B, gmina Rajgr\u00F3d, Grajewo County, Podlaskie Voivodeship, Poland",
-    "DepartureCoords": "16.544998154230942, 50.644235672687294",
-    "DestinationCoords": "22.76449722435083, 53.64952199454264",
+    "Departure": "Drew-Stol, Stary Mystk\u00F3wiec, gmina Somianka, Wyszk\u00F3w County, Masovian Voivodeship, 07-206, Poland",
+    "Destination": "K\u0119szyca, gmina Mi\u0119dzyrzecz, Mi\u0119dzyrzecz County, Lubusz Voivodeship, 66-305, Poland",
+    "DepartureCoords": "52.625560980673335, 21.275752984979857",
+    "DestinationCoords": "52.42084796422748, 15.501093671971853",
     "AssignedVehicle": -1,
     "AssignedDriver": -1,
-    "Distance": 662.44
-  },
-  {
-    "Id": 4,
-    "Departure": "\u015Awiniary, Nowa Wie\u015B Goszcza\u0144ska, gmina Twardog\u00F3ra, Ole\u015Bnica County, Lower Silesian Voivodeship, 56-416, Poland",
-    "Destination": "Kozia G\u00F3rka, Groch\u00F3w-Centrum, Olszynka Grochowska, South Praga, Warsaw, Masovian Voivodeship, 04-344, Poland",
-    "DepartureCoords": "17.451973008721932, 51.43603249210615",
-    "DestinationCoords": "21.089171228173633, 52.25723071917753",
-    "AssignedVehicle": -1,
-    "AssignedDriver": -1,
-    "Distance": 344
+    "Distance": 487.52
   }
 ]
