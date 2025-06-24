@@ -33,7 +33,7 @@ function setDeparture(latlng) {
     departureMarker = L.marker(latlng, {
         icon: L.icon({
             iconUrl:
-                "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
+                "/images/marker-icon-green.png",
             iconSize: [25, 41],
             iconAnchor: [12, 41],
         }),
@@ -50,7 +50,7 @@ function setDestination(latlng) {
     destinationMarker = L.marker(latlng, {
         icon: L.icon({
             iconUrl:
-                "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
+                "/images/marker-icon-red.png",
             iconSize: [25, 41],
             iconAnchor: [12, 41],
         }),

@@ -34,7 +34,7 @@ public class DriverController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(Driver driver)
+    public async Task<IActionResult> Create(Driver driver)
     {
         await _driverService.Add(driver);
 
