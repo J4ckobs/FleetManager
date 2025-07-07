@@ -1,21 +1,48 @@
 using System.Threading.Tasks;
 using FleetManager.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FleetManager.Services;
 
 public class VehicleService
 {
-    public FileDataService<Vehicle> vehicleService;
+    public FleetContext context;
 
-    public VehicleService(FileDataService<Vehicle> _vehicleService)
+    public VehicleService(FleetContext _context)
     {
-        vehicleService = _vehicleService;
+        context = _context;
     }
 
-    public async Task<IEnumerable<Vehicle>> GetAll() => await vehicleService.GetAllAsync();
-    public async Task<IEnumerable<Vehicle>> GetAvaliableVehicles() => await vehicleService.GetSelectedAsync(vehicle => vehicle.Status == VehicleStatus.Available);
-    public async Task<Vehicle?> Get(int id) => await vehicleService.GetByPredictateAsync(vehicle => vehicle.Id == id);
-    public async Task Add(Vehicle vehicle) => await vehicleService.AddAsync(vehicle);
-    public async Task Delete(int id) => await vehicleService.RemoveByPredictateAsync(vehicle => vehicle.Id == id);
-    public async Task Update(Vehicle vehicle) => await vehicleService.UpdateAsync(v => v.Id == vehicle.Id, vehicle);
+    public async Task<IEnumerable<Vehicle>> GetAll() =>
+        await context.Vehicles.ToListAsync();
+    public async Task<IEnumerable<Vehicle>> GetAvaliableVehicles() =>
+        await context.Vehicles.Where(vehicle => vehicle.Status == VehicleStatus.Available).ToListAsync();
+    public async Task<Vehicle?> Get(int id) =>
+        await context.Vehicles.FirstOrDefaultAsync(vehicle => vehicle.Id == id);
+    public async Task<bool> Add(Vehicle vehicle)
+    {
+        var addedVehicle = context.Vehicles.Add(vehicle);
+
+        if (addedVehicle == null)
+            return false;
+
+        return await context.SaveChangesAsync() > 0;
+    }
+    public async Task<bool> Delete(int id)
+    {
+        var vehicle = await context.Vehicles.FindAsync(id);
+
+        if (vehicle == null)
+            return false;
+
+        context.Vehicles.Remove(vehicle);
+
+        return await context.SaveChangesAsync() > 0;
+    }
+    public async Task<bool> Update(Vehicle vehicle)
+    {
+        context.Vehicles.Update(vehicle);
+
+        return await context.SaveChangesAsync() > 0;
+    }
 }

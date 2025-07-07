@@ -112,6 +112,8 @@ namespace FleetManager.Controllers
         [HttpPost("validate-driver-and-vehicle")]
         public async Task<ActionResult> CreateRouteValidateDriverAndVehicle([FromBody] Models.Route route)
         {
+            //needs to make little change | Id of route is undefined in Db (here equals zero) | at first there should be 
+            // creation of route in Db and then get its id???
             var driverValidateStatus = await ValidateDriver(route.AssignedDriver, route.Id);
             var vehicleValidateStatus = await ValidateVehicle(route.AssignedVehicle, route.Id);
 

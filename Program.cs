@@ -1,5 +1,6 @@
 using FleetManager.Models;
 using FleetManager.Services;
+using Microsoft.EntityFrameworkCore;
 using Route = FleetManager.Models.Route;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
@@ -15,12 +16,17 @@ builder.Services.AddControllers();
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<FleetContext>(options =>
+{
+    options.UseSqlServer("Server=DESKTOP-13HITVH;Database=FleetDb;Trusted_Connection=True;TrustServerCertificate=True;");
+});
+
+/*
 builder.Services.AddScoped<FileDataService<Vehicle>>(provider =>
 {
     var env = provider.GetRequiredService<IWebHostEnvironment>();
     return new FileDataService<Vehicle>("vehicles", env);
 });
-
 builder.Services.AddScoped<FileDataService<Driver>>(provider =>
 {
     var env = provider.GetRequiredService<IWebHostEnvironment>();
@@ -31,7 +37,7 @@ builder.Services.AddScoped<FileDataService<Route>>(provider =>
 {
     var env = provider.GetRequiredService<IWebHostEnvironment>();
     return new FileDataService<Route>("routes", env);
-});
+});*/
 
 builder.Services.AddScoped<VehicleService>();
 builder.Services.AddScoped<DriverService>();
