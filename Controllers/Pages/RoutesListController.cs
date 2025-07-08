@@ -112,12 +112,19 @@ namespace FleetManager.Controllers
         [HttpPost("validate-driver-and-vehicle")]
         public async Task<ActionResult> CreateRouteValidateDriverAndVehicle([FromBody] Models.Route route)
         {
-            //needs to make little change | Id of route is undefined in Db (here equals zero) | at first there should be 
-            // creation of route in Db and then get its id???
+            var succesfullAdd = await _routeService.Add(route);
+
+            if (!succesfullAdd)
+                return BadRequest("Unbale to update route");
+
             var driverValidateStatus = await ValidateDriver(route.AssignedDriver, route.Id);
             var vehicleValidateStatus = await ValidateVehicle(route.AssignedVehicle, route.Id);
 
-            await _routeService.Add(route);
+            if (!driverValidateStatus)
+                return BadRequest("Unable to assign driver to route");
+
+            if (!vehicleValidateStatus)
+                return BadRequest("Unable to assign vehicle to route");
 
             return Ok();
         }
@@ -125,10 +132,20 @@ namespace FleetManager.Controllers
         [HttpPut("validate-driver-and-vehicle/{id}")]
         public async Task<ActionResult> UpdateRouteValidateDriverAndVehicle([FromBody] Models.Route route)
         {
+            var succesfullUpdate = await _routeService.Update(route);
+
+            if (!succesfullUpdate)
+                return BadRequest("Unbale to update route");
+
             var driverValidateStatus = await ValidateDriver(route.AssignedDriver, route.Id);
             var vehicleValidateStatus = await ValidateVehicle(route.AssignedVehicle, route.Id);
 
-            await _routeService.Update(route);
+            if (!driverValidateStatus)
+                return BadRequest("Unable to assign driver to route");
+
+            if (!vehicleValidateStatus)
+                return BadRequest("Unable to assign vehicle to route");
+
             return Ok();
         }
 
@@ -155,10 +172,7 @@ namespace FleetManager.Controllers
                 var newDriver = drivers.FirstOrDefault(x => x.Id == assignedDriver);
 
                 if (newDriver == null)
-                {
-                    Console.WriteLine($"Driver with ID {assignedDriver} not found");
                     return false;
-                }
 
                 newDriver.RouteId = routeId;
 
@@ -190,6 +204,7 @@ namespace FleetManager.Controllers
             {
                 currentVehicle.RouteId = -1;
                 currentVehicle.Status = VehicleStatus.Available;
+
                 await _vehicleService.Update(currentVehicle);
             }
 
@@ -198,10 +213,7 @@ namespace FleetManager.Controllers
                 var newVehicle = vehicles.FirstOrDefault(x => x.Id == assignedVehicle);
 
                 if (newVehicle == null)
-                {
-                    Console.WriteLine($"Vehicle with ID {assignedVehicle} not found");
                     return false;
-                }
 
                 newVehicle.RouteId = routeId;
                 newVehicle.Status = VehicleStatus.Assigned;
